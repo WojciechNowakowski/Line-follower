@@ -3,6 +3,7 @@
  *
  * Created: 2014-06-02 14:11:07
  *  Author: Wojciech
+ * Literature: http://www.leon-instruments.pl/2013/04/poznaj-atxmega.html
  */ 
 
 #include "Zegary.h"

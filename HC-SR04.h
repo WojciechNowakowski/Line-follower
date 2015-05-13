@@ -1,3 +1,6 @@
+#ifndef HC_SR04_H_
+#define HC_SR04_H_
+
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
@@ -21,3 +24,5 @@ ISR(HC_SR04_timer_int_vect);	// przerwanie przechwycenia A timera - czujnik HC-S
 void HC_SR04_init(void) /* konfiguracja czujnika HC-SR04 */;
 
 void HC_SR04_trigger(void) /* wyzwolenie pomiaru przez czujnik HC-SR04 */;
+
+#endif // HC_SR04_H_

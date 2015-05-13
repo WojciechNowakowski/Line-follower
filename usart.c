@@ -13,7 +13,7 @@ volatile int8_t odb_byte;
 
 ISR(USARTC0_RXC_vect)	// przerwanie przy odbiorze danych przez usart
 {
-	usart_flaga = 1;						// ustaw odpowiedni¹ flagê
+	usart_flaga = 1;					// ustaw odpowiedni¹ flagê
 	odb_byte = USARTC0_DATA;	// przepisz odebrany bajt/znak
 }
 

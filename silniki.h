@@ -5,11 +5,10 @@
  *  Author: Wojciech
  */ 
 
-#include <avr/io.h>
-
 #ifndef SILNIKI_H_
 #define SILNIKI_H_
 
+#include <avr/io.h>
 
 void silniki_init(void) /* konfiguracja timera do PWM 8 kHz */;
 void PRAWY_przod(uint16_t wypelnienie) /* prawy silnik do przodu */;

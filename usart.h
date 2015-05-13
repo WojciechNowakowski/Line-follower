@@ -5,12 +5,11 @@
  *  Author: Wojciech
  */ 
 
-#include <avr/io.h>
-#include <avr/interrupt.h>
-
 #ifndef USART_H_
 #define USART_H_
 
+#include <avr/io.h>
+#include <avr/interrupt.h>
 
 void wyslij_usart(unsigned char ilosc_znakow) /* wysy³a wskazan¹ iloœæ znaków z buforu przez usart */;
 void usart_init(void) /* konfiguracja USART */;

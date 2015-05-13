@@ -5,14 +5,14 @@
  *  Author: Wojciech
  */ 
 
+#ifndef PILOT_H_
+#define PILOT_H_
+
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
 #include "init.h"
 #include "watchdog.h"
-
-#ifndef PILOT_H_
-#define PILOT_H_
 
 #define ok				64
 #define stop			145
