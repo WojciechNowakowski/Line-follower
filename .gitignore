@@ -1,5 +1,6 @@
 # Build Files, etc.
 Debug/**
+main.atsuo
 
 # Windows image file caches
 Thumbs.db
