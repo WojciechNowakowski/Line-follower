@@ -13,7 +13,7 @@ volatile int8_t odb_byte;
 
 ISR(USARTC0_RXC_vect)	// przerwanie przy odbiorze danych przez usart
 {
-	usart_flaga = 1;						// ustaw odpowiedni¹ flagê
+	usart_flaga = 1;					// ustaw odpowiedni¹ flagê
 	odb_byte = USARTC0_DATA;	// przepisz odebrany bajt/znak
 }
 
@@ -29,9 +29,9 @@ ISR(USARTC0_DRE_vect)	// przerwanie pustego buforu nadawania
 
 void wyslij_usart(unsigned char ilosc_znakow)	// wysy³a wskazan¹ iloœæ znaków z buforu przez usart
 {
-	usart_indeks = 0;												// zacznij od znaku z indeksem 0
+	usart_indeks = 0;														// zacznij od znaku z indeksem 0
 	usart_ile = ilosc_znakow;
-	USARTC0.CTRLA |= USART_DREINTLVL_LO_gc;	// odblokuj przerwanie pustego bufora nadawania
+	USARTC0.CTRLA |= USART_DREINTLVL_LO_gc;			// odblokuj przerwanie pustego bufora nadawania
 }
  
 void usart_init(void)	// konfiguracja USART

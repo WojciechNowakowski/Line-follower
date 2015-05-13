@@ -4,12 +4,12 @@
  * Created: 2014-06-01 23:36:29
  *  Author: Wojciech
  */ 
- 
-#include <avr/io.h>
-#include <util/delay.h>
 
 #ifndef INIT_H_
-#define INIT_H_
+#define INIT_H_ 
+
+#include <avr/io.h>
+#include <util/delay.h>
 
 //definicje
 #define LED_DDR_init	PORTE.DIRSET = PIN0_bm | PIN1_bm | PIN2_bm | PIN3_bm;\
@@ -59,7 +59,6 @@
 #define ust_wsp_reg_PID					1
 #define testy_silnika						2
 #define sledzenie_linii					3
-
 
 void main_timer_init(void) /* konfiguracja timera g³ównego 10ms */;
 void led_init(void) /* konfiguracja i mryganie diodami */;

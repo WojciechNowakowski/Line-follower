@@ -16,9 +16,9 @@ ISR(ADCA_CH0_vect)	// przerwanie zakoñczenia konwersji ADC na kanale 0
 {
 	if (num_cz < liczba_czujnikow)														// wykonaj dla wszystkich czujników
 	{
-		czujniki[num_cz] = (ADCA.CH0RESL > prog)?1:0;		// ustalenie czy przekroczono próg pomiaru - czarne czy bia³e
+		czujniki[num_cz] = (ADCA.CH0RESL > prog)?1:0;						// ustalenie czy przekroczono próg pomiaru - czarne czy bia³e
 		ADCA.CH0.MUXCTRL = ((num_cz + 1) << ADC_CH_MUXPOS_gp);	// przestawienie próbkowanego kana³u
-		ADCA.CH0.CTRL |=	ADC_CH_START_bm;												// start ADC
+		ADCA.CH0.CTRL |=	ADC_CH_START_bm;											// start ADC
 	}else																											// w przeciwnym razie
 	{
 		adc_pomiar_napiecia = ADCA.CH0RESL;											// zapisz zmierzone napiêcie zasilania
@@ -28,31 +28,31 @@ ISR(ADCA_CH0_vect)	// przerwanie zakoñczenia konwersji ADC na kanale 0
 
 int16_t sprawdz_stan_czujnikow_i_zasilanie(void)	// odczytuje wskazania czujników i zwraca po³o¿enie linii
 {
-	int16_t wynik = 0;												// zmienne pomocnicze
+	int16_t wynik = 0;															// zmienne pomocnicze
 	int8_t ilosc_aktywnych_cz = 0;
-	num_cz = 0;																// pierwszy czujnik o numerze 0
-	ADCA.CH0.MUXCTRL = ADC_CH_MUXPOS_PIN0_gc;	// pierwszy kana³ 0
-	ADCA.CH0.CTRL |=	ADC_CH_START_bm;					// start ADC
-	while (num_cz <= liczba_czujnikow);				// czekaj na sprawdzenie wszystkich czujników
+	num_cz = 0;																			// pierwszy czujnik o numerze 0
+	ADCA.CH0.MUXCTRL = ADC_CH_MUXPOS_PIN0_gc;				// pierwszy kana³ 0
+	ADCA.CH0.CTRL |=	ADC_CH_START_bm;							// start ADC
+	while (num_cz <= liczba_czujnikow);							// czekaj na sprawdzenie wszystkich czujników
 	
 	for (unsigned char i = 0; i < liczba_czujnikow; i++)
 	{
 		if (czujniki[i])
 		{
-			wynik += wagi_cz[i];				// wynik zale¿ny od wagi danego czujnika
-			ilosc_aktywnych_cz++;				// sprawdŸ ile czujników wykry³o liniê
-			ilosc_braku_sygnalu = 0;		// gdy któryœ z czujników wykrywa liniê kasuj zmienn¹ licz¹c¹ pomiary bez wykrycia linii
+			wynik += wagi_cz[i];												// wynik zale¿ny od wagi danego czujnika
+			ilosc_aktywnych_cz++;												// sprawdŸ ile czujników wykry³o liniê
+			ilosc_braku_sygnalu = 0;										// gdy któryœ z czujników wykrywa liniê kasuj zmienn¹ licz¹c¹ pomiary bez wykrycia linii
 		}
 	}
-	if (ilosc_aktywnych_cz == 0)		// gdy ¿aden czujnik nie wykry³ linii
+	if (ilosc_aktywnych_cz == 0)										// gdy ¿aden czujnik nie wykry³ linii
 	{
-		wynik = polozenie_linii;			// zwróæ poprzednie po³o¿enie
-		ilosc_braku_sygnalu++;				// poinformuj o braku wykrycia linii
-		LED1_ON;											// zapal diodê
+		wynik = polozenie_linii;											// zwróæ poprzednie po³o¿enie
+		ilosc_braku_sygnalu++;												// poinformuj o braku wykrycia linii
+		LED1_ON;																			// zapal diodê
 	}else
 	{
-		wynik /= ilosc_aktywnych_cz;	// w przeciwnym wypadku wynik podziel przez liczbê czujników, które wykry³y liniê
-		LED1_OFF;											// zgaœ diodê informuj¹c¹ o braku wykrycia linii
+		wynik /= ilosc_aktywnych_cz;									// w przeciwnym wypadku wynik podziel przez liczbê czujników, które wykry³y liniê
+		LED1_OFF;																			// zgaœ diodê informuj¹c¹ o braku wykrycia linii
 	}
 	return wynik;
 }

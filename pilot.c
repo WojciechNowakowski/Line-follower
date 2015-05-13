@@ -12,17 +12,17 @@ volatile uint8_t tryb;
 
 ISR(TCC0_CCA_vect)  // przerwanie przechwycenia A timera C0 - pilot IR
 {
-	unsigned char czas;		// zmienna pomocnicza
-	if (TCC0.CNT >= 3000) // gdy sygna³ jest nieprawid³owy
+	unsigned char czas;					// zmienna pomocnicza
+	if (TCC0.CNT >= 3000)				// gdy sygna³ jest nieprawid³owy
 	{
-		licz_ir = 0;				// wykasuj licznik tablicy
+		licz_ir = 0;							// wykasuj licznik tablicy
 	}
-	TCC0.CNT = 0;					// wyzeruj timer
-	czas = TCC0.CCAL;			// zapamiêtaj mniej znacz¹cy bajt rejestru CCA
-	if(licz_ir <= 26)			// zapamiêtuj znacz¹ce wartoœci
+	TCC0.CNT = 0;								// wyzeruj timer
+	czas = TCC0.CCAL;						// zapamiêtaj mniej znacz¹cy bajt rejestru CCA
+	if(licz_ir <= 26)						// zapamiêtuj znacz¹ce wartoœci
 	tab[licz_ir] = czas;
-	licz_ir++;						// zwiêksz licznik
-	if(licz_ir > 32)			// gdy sygna³ siê zakoñczy³
+	licz_ir++;									// zwiêksz licznik
+	if(licz_ir > 32)						// gdy sygna³ siê zakoñczy³
 	{
 		odebrano_kod_pilota = 1;	// ustaw flagê informuj¹c¹ o odebraniu sygna³u
 		kod_ir = 0;								// skasuj poprzedni kod
@@ -44,7 +44,7 @@ void IR_remote_init(void)	// konfiguracja input capture do pilota IR
 
 void sprawdz_sygnal_z_pilota(void)	// sprawdzenie odbioru sygna³u i ustalenie jego kodu
 {
-	if(odebrano_kod_pilota)							// jeœli odczytano sygna³ to ustal jego kod
+	if(odebrano_kod_pilota)								// jeœli odczytano sygna³ to ustal jego kod
 	{
 		odebrano_kod_pilota = 0;						// zgaœ flagê
 		for(int i=0;i<8;i++)
