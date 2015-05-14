@@ -76,16 +76,11 @@ void tryb_testy_silnika_czujnikow(void)	// polecenia testowe silników i czujnikó
 	{
 		case time:
 			sprawdz_stan_czujnikow_i_zasilanie();
-			for (int8_t i = 0; i < liczba_czujnikow; i++)
-			{
-				if (czujniki[i])
-				{
-					LED_PORT.OUTCLR = i + 1;
-					_delay_ms(200);
-					LED_PORT.OUTSET = i + 1;
-					_delay_ms(200);
-				}
-			}
+			
+			sprintf(usart_bufor, "czujniki: %d%d%d%d%d%d%d%d%d%d%d\n\r", czujniki[1], czujniki[0], czujniki[3], czujniki[2],\
+							czujniki[5], czujniki[4], czujniki[7], czujniki[6], czujniki[9], czujniki[8], czujniki[10]);	
+			wyslij_usart(23);
+			_delay_ms(12);
 		break;
 		case przod:
 			LEWY_przod(max_pwm);
