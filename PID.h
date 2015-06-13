@@ -15,7 +15,7 @@
 #include "usart.h"
 #include "watchdog.h"
 
-int16_t PID_wyznacz_sygnal(int16_t wejscie) /* wyznaczenie sygna³u id¹cego na silniki na podstawie po³o¿enia linii */;
+int16_t PID_wyznacz_sygnal(int16_t uchyb) /* wyznaczenie sygna³u id¹cego na silniki na podstawie po³o¿enia linii */;
 void odczyt_konfiguracji(void) /* odczyt nastaw z EEPROM */;
 void tryb_ust_wsp_reg_PID(void) /* ustawianie przez usart wspó³czynników regulatora PID */;
 void wyslij_nastawy_PID(void);

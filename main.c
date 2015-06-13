@@ -30,11 +30,13 @@ ISR(TCE0_OVF_vect)	// przerwanie od przepe³nienia g³ównego timera 10 ms
 
 void tryb_sledzenie_linii(void)	// pod¹¿anie za lini¹ z pomoc¹ regulatora PID
 {
+	int16_t uchyb;
 	if(flaga_timer)
 	{
 		flaga_timer = 0;
 		polozenie_linii = sprawdz_stan_czujnikow_i_zasilanie();
-		sygnal = PID_wyznacz_sygnal(polozenie_linii);
+		uchyb = 0 - polozenie_linii;		// lewo - ujemny
+		sygnal = PID_wyznacz_sygnal(uchyb);
 		ustawienie_silnikow(sygnal);		// ustaw kierunek i prêdkoœæ silników zgodnie z sygna³em steruj¹cym
 		
 		if(ilosc_braku_sygnalu > 99)		// jeœli nie powróci na liniê w ci¹gu 1s to zatrzymaj
@@ -50,12 +52,12 @@ void tryb_sledzenie_linii(void)	// pod¹¿anie za lini¹ z pomoc¹ regulatora PID
 			LED6_OFF
 		}
 
-		if (adc_pomiar_napiecia < 85)	// informowanie o stanie baterii
+		if (adc_pomiar_napiecia < 82)	// informowanie o stanie baterii
 		{
 			LED3_ON
 		} else
 		{
-			if (adc_pomiar_napiecia < 90)
+			if (adc_pomiar_napiecia < 86)
 			{
 				LED2_ON
 			} else

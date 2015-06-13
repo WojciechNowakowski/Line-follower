@@ -13,28 +13,27 @@ extern volatile uint8_t usart_flaga, odb_byte;
 extern char			usart_bufor[32];
 extern volatile uint8_t tryb;
 
-int16_t PID_wyznacz_sygnal(int16_t wejscie)	// wyznaczenie sygna³u id¹cego na silniki na podstawie po³o¿enia linii
+int16_t PID_wyznacz_sygnal(int16_t uchyb)	// wyznaczenie sygna³u id¹cego na silniki na podstawie po³o¿enia linii
 {
-	static int16_t pop_uchyb = 0, uchyb = 0, rozniczka = 0, calka = 0;
+	static int16_t pop_uchyb = 0, rozniczka = 0, calka = 0;
 	int16_t wyjscie;
 
-	uchyb = 0 - wejscie;	// lewo - ujemny
-	calka += uchyb;
+	calka += uchyb * k_i;
  
 	// prosty anty wind-up
-	if(calka > calka_max / k_i)
-		calka = calka_max / k_i;
-	if(calka < -calka_max / k_i)
-		calka = -calka_max / k_i;
+	if(calka > calka_max)
+		calka = calka_max;
+	if(calka < -calka_max)
+		calka = -calka_max;
 	if (uchyb == 0)
 	{
 		calka = 0;
 	}
  
-	rozniczka = k_d * (uchyb - pop_uchyb) + rozniczka * 5 / 6;	// ró¿niczkowanie z inercj¹
+	rozniczka = k_d * (uchyb - pop_uchyb) + rozniczka * 5 / 6;	// ró¿niczkowanie z pseudo inercj¹
 	pop_uchyb = uchyb;
  
-	wyjscie = k_p * uchyb + k_i * calka + rozniczka;
+	wyjscie = k_p * uchyb + calka + rozniczka;
 
 	return wyjscie;
 }
